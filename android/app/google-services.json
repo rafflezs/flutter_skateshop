@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "344424557878",
+    "project_id": "flutter-loja-virtual-c4f3d",
+    "storage_bucket": "flutter-loja-virtual-c4f3d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:344424557878:android:9e1e74fc956139ce3ad797",
+        "android_client_info": {
+          "package_name": "br.com.mariotti.loja_virtual"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "344424557878-s6dc3ms8vcmpla6df2iojoivq39kjf6o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCG1E3SdPqphD7QbzNmFsqO0nIMjN0ILhw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "344424557878-s6dc3ms8vcmpla6df2iojoivq39kjf6o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
