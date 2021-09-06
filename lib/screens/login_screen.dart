@@ -76,7 +76,7 @@ class LoginScreen extends StatelessWidget {
                                 Theme.of(context).primaryColor)),
                         onPressed: () {
                           if (_fromKey.currentState!.validate()) {}
-                          model.SignIn();
+                          model.signIn();
                         },
                         child: const Text(
                           "Entrar",

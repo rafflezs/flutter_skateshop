@@ -7,12 +7,12 @@ import 'dart:async';
 
 class UserModel extends Model {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  late User _firebaseUser;
+  late User? _firebaseUser;
   Map<String, dynamic> userData = Map();
 
   bool isLoading = false;
 
-  void SignUp(
+  void signUp(
       {required Map<String, dynamic> userData,
       required String pass,
       required VoidCallback onSuccess,
@@ -38,7 +38,23 @@ class UserModel extends Model {
     });
   }
 
-  void SignIn() {}
+  void signIn() async {
+    isLoading = true;
+    notifyListeners();
+
+    await Future.delayed(Duration(seconds: 3));
+
+    isLoading = false;
+    notifyListeners();
+  }
+
+  void signOut() async {
+    await _auth.signOut();
+    userData = Map();
+    _firebaseUser =
+        null; //Caso dê bosta, comentar essa linha e tirar o nullCheck do User
+    notifyListeners();
+  }
 
   void recoverPassword() {}
 
@@ -50,7 +66,7 @@ class UserModel extends Model {
     this.userData = userData;
     await FirebaseFirestore.instance
         .collection("users")
-        .doc(_firebaseUser.uid)
+        .doc(_firebaseUser!.uid)
         .set(userData);
   }
 }

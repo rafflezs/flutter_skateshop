@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:loja_virtual/models/user_model.dart';
@@ -12,6 +14,7 @@ class SignUpScreenStful extends StatefulWidget {
 
 class _SignUpScreenStfulState extends State<SignUpScreenStful> {
   final _fromKey = GlobalKey<FormState>();
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
@@ -21,6 +24,7 @@ class _SignUpScreenStfulState extends State<SignUpScreenStful> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         backgroundColor: Theme.of(context).primaryColor,
         centerTitle: true,
@@ -41,7 +45,7 @@ class _SignUpScreenStfulState extends State<SignUpScreenStful> {
                   TextFormField(
                     controller: _nameController,
                     validator: (String? text) {
-                      if (text!.isEmpty || text.length < 6) {
+                      if (text!.isEmpty) {
                         return "Nome inválido";
                       }
                     },
@@ -110,7 +114,7 @@ class _SignUpScreenStfulState extends State<SignUpScreenStful> {
                               "email": _emailController.text,
                             };
 
-                            model.SignUp(
+                            model.signUp(
                                 userData: userData,
                                 pass: _passwordController.text,
                                 onSuccess: _onSuccess,
@@ -129,6 +133,22 @@ class _SignUpScreenStfulState extends State<SignUpScreenStful> {
     );
   }
 
-  void _onSuccess() {}
-  void _onFail() {}
+  void _onSuccess() {
+    _scaffoldKey.currentState!.showSnackBar(SnackBar(
+      content: Text("Usuário criado com sucesso"),
+      backgroundColor: Theme.of(context).primaryColor,
+      duration: Duration(seconds: 2),
+    ));
+    Future.delayed(Duration(seconds: 2)).then((_) {
+      Navigator.of(context).pop();
+    });
+  }
+
+  void _onFail() {
+    _scaffoldKey.currentState!.showSnackBar(SnackBar(
+      content: Text("Falha ao criar usuário"),
+      backgroundColor: Colors.redAccent,
+      duration: Duration(seconds: 2),
+    ));
+  }
 }

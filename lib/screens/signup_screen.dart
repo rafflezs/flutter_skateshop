@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:loja_virtual/models/user_model.dart';
@@ -5,6 +7,7 @@ import 'package:scoped_model/scoped_model.dart';
 
 class SignUpScreen extends StatelessWidget {
   final _fromKey = GlobalKey<FormState>();
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   final _nameController = TextEditingController();
   final _emailController = TextEditingController();
@@ -14,6 +17,7 @@ class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       appBar: AppBar(
         backgroundColor: Theme.of(context).primaryColor,
         centerTitle: true,
@@ -103,7 +107,7 @@ class SignUpScreen extends StatelessWidget {
                               "email": _emailController.text,
                             };
 
-                            model.SignUp(
+                            model.signUp(
                                 userData: userData,
                                 pass: _passwordController.text,
                                 onSuccess: _onSuccess,
@@ -122,6 +126,22 @@ class SignUpScreen extends StatelessWidget {
     );
   }
 
-  void _onSuccess() {}
-  void _onFail() {}
+  void _onSuccess() {
+    _scaffoldKey.currentState!.showSnackBar(SnackBar(
+      content: Text("Usuário criado com sucesso"),
+      backgroundColor: Theme.of(context).primaryColor,
+      duration: Duration(seconds: 2),
+    ));
+    Future.delayed(Duration(seconds: 2)).then((_) {
+      Navigator.of(_scaffoldKey).pop();
+    });
+  }
+
+  void _onFail() {
+    _scaffoldKey.currentState!.showSnackBar(SnackBar(
+      content: Text("Falha ao criar usuário"),
+      backgroundColor: Colors.redAccent,
+      duration: Duration(seconds: 2),
+    ));
+  }
 }
