@@ -2,6 +2,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:loja_virtual/models/user_model.dart';
 import 'package:loja_virtual/screens/signup_screen.dart';
+import 'package:loja_virtual/screens/signup_stful_screen.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -17,8 +18,8 @@ class LoginScreen extends StatelessWidget {
         actions: [
           TextButton(
               onPressed: () {
-                Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => SignUpScreen()));
+                Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    builder: (context) => SignUpScreenStful()));
               },
               child: const Text(
                 "CRIAR CONTA",
