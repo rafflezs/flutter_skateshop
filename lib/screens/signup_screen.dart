@@ -1,9 +1,16 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
+import 'package:loja_virtual/models/user_model.dart';
+import 'package:scoped_model/scoped_model.dart';
 
 class SignUpScreen extends StatelessWidget {
   final _fromKey = GlobalKey<FormState>();
 
+  final _nameController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+  final _addrController = TextEditingController();
+  final _cepController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -12,75 +19,109 @@ class SignUpScreen extends StatelessWidget {
         centerTitle: true,
         title: const Text("Criar Conta"),
       ),
-      body: Form(
-          key: _fromKey,
-          child: ListView(
-            padding: const EdgeInsets.all(20),
-            children: [
-              TextFormField(
-                validator: (String? text) {
-                  if (text!.isEmpty || text.length < 6) {
-                    return "Nome inválido";
-                  }
-                },
-                keyboardType: TextInputType.name,
-                decoration: const InputDecoration(hintText: "Nome Completo"),
-              ),
-              const SizedBox(height: 16),
-              TextFormField(
-                validator: (String? text) {
-                  if (text!.isEmpty || text.length < 6) {
-                    return "Endereço inválido";
-                  }
-                },
-                keyboardType: TextInputType.streetAddress,
-                decoration: const InputDecoration(hintText: "Endereço"),
-              ),
-              const SizedBox(height: 16),
-              TextFormField(
-                validator: (String? text) {
-                  if (text!.isEmpty || text.length < 8) {
-                    return "CEP inválido";
-                  }
-                },
-                keyboardType: TextInputType.number,
-                decoration: const InputDecoration(hintText: "CEP Completo"),
-              ),
-              const SizedBox(height: 16),
-              TextFormField(
-                validator: (text) =>
-                    EmailValidator.validate(text!) ? null : "E-mail inválido",
-                keyboardType: TextInputType.emailAddress,
-                decoration: const InputDecoration(hintText: "E-mail"),
-              ),
-              const SizedBox(height: 16),
-              TextFormField(
-                validator: (String? text) {
-                  if (text!.isEmpty || text.length < 6) {
-                    return "Senha inválida";
-                  }
-                },
-                keyboardType: TextInputType.visiblePassword,
-                decoration: const InputDecoration(hintText: "Senha"),
-                obscureText: true,
-              ),
-              const SizedBox(height: 16),
-              SizedBox(
-                height: 50,
-                child: ElevatedButton(
-                    style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(
-                            Theme.of(context).primaryColor)),
-                    onPressed: () {
-                      if (_fromKey.currentState!.validate()) {}
+      body: ScopedModelDescendant<UserModel>(
+        builder: (context, child, model) {
+          if (model.isLoading) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          return Form(
+              key: _fromKey,
+              child: ListView(
+                padding: const EdgeInsets.all(20),
+                children: [
+                  TextFormField(
+                    controller: _nameController,
+                    validator: (String? text) {
+                      if (text!.isEmpty || text.length < 6) {
+                        return "Nome inválido";
+                      }
                     },
-                    child: const Text(
-                      "Criar Conta",
-                      style: TextStyle(fontSize: 20),
-                    )),
-              )
-            ],
-          )),
+                    keyboardType: TextInputType.name,
+                    decoration:
+                        const InputDecoration(hintText: "Nome Completo"),
+                  ),
+                  const SizedBox(height: 16),
+                  TextFormField(
+                    controller: _addrController,
+                    validator: (String? text) {
+                      if (text!.isEmpty || text.length < 6) {
+                        return "Endereço inválido";
+                      }
+                    },
+                    keyboardType: TextInputType.streetAddress,
+                    decoration: const InputDecoration(hintText: "Endereço"),
+                  ),
+                  const SizedBox(height: 16),
+                  TextFormField(
+                    controller: _cepController,
+                    validator: (String? text) {
+                      if (text!.isEmpty || text.length < 8) {
+                        return "CEP inválido";
+                      }
+                    },
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(hintText: "CEP"),
+                  ),
+                  const SizedBox(height: 16),
+                  TextFormField(
+                    controller: _emailController,
+                    validator: (text) {
+                      if (text!.isEmpty || !text.contains("@")) {
+                        return "E-mail inválido";
+                      }
+                    },
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: const InputDecoration(hintText: "E-mail"),
+                  ),
+                  const SizedBox(height: 16),
+                  TextFormField(
+                    controller: _passwordController,
+                    validator: (String? text) {
+                      if (text!.isEmpty || text.length < 6) {
+                        return "Senha inválida";
+                      }
+                    },
+                    keyboardType: TextInputType.visiblePassword,
+                    decoration: const InputDecoration(hintText: "Senha"),
+                    obscureText: true,
+                  ),
+                  const SizedBox(height: 16),
+                  SizedBox(
+                    height: 50,
+                    child: ElevatedButton(
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(
+                                Theme.of(context).primaryColor)),
+                        onPressed: () {
+                          if (_fromKey.currentState!.validate()) {
+                            Map<String, dynamic> userData = {
+                              "name": _nameController.text,
+                              "endereco": _addrController.text,
+                              "cep": _cepController.text,
+                              "email": _emailController.text,
+                            };
+
+                            model.SignUp(
+                                userData: userData,
+                                pass: _passwordController.text,
+                                onSuccess: _onSuccess,
+                                onFail: _onFail);
+                          }
+                        },
+                        child: const Text(
+                          "Criar Conta",
+                          style: TextStyle(fontSize: 20),
+                        )),
+                  )
+                ],
+              ));
+        },
+      ),
     );
   }
+
+  void _onSuccess() {}
+  void _onFail() {}
 }
