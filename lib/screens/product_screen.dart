@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:loja_virtual/datas/cart_product_data.dart';
 import 'package:loja_virtual/datas/product_data.dart';
+import 'package:loja_virtual/models/cart_model.dart';
+import 'package:loja_virtual/models/user_model.dart';
+import 'package:loja_virtual/screens/cart_screen.dart';
+import 'package:loja_virtual/screens/login_screen.dart';
 
 class ProductScreen extends StatefulWidget {
   final ProductData productData;
@@ -56,9 +61,24 @@ class _ProductScreenState extends State<ProductScreen> {
                     style: ButtonStyle(
                         backgroundColor:
                             MaterialStateProperty.all(primaryColor)),
-                    onPressed: () {},
-                    child: const Text(
-                      "Adcionar ao carrinho",
+                    onPressed: () {
+                      if (UserModel.of(context).isLoggedIn()) {
+                        CartProductData cartProductData = CartProductData();
+                        cartProductData.quantity = 1;
+                        cartProductData.product_id = productData.id;
+                        cartProductData.category = productData.category;
+                        CartModel.of(context).addCartItem(cartProductData);
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => CartScreen()));
+                      } else {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => LoginScreen()));
+                      }
+                    },
+                    child: Text(
+                      UserModel.of(context).isLoggedIn()
+                          ? "Adcionar ao carrinho"
+                          : "Entre para comprar",
                       style: TextStyle(fontSize: 22),
                     ),
                   ),

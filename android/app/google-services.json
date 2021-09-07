@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "344424557878-jo8g83rqdsv4s4bacjkef15n1f72bhf7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "br.com.mariotti.loja_virtual",
+            "certificate_hash": "10c0bd8834154c0227f710660e77a29b3f9b93fc"
+          }
+        },
+        {
           "client_id": "344424557878-s6dc3ms8vcmpla6df2iojoivq39kjf6o.apps.googleusercontent.com",
           "client_type": 3
         }

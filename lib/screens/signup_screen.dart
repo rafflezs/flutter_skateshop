@@ -5,8 +5,15 @@ import 'package:flutter/material.dart';
 import 'package:loja_virtual/models/user_model.dart';
 import 'package:scoped_model/scoped_model.dart';
 
-class SignUpScreen extends StatelessWidget {
-  final _fromKey = GlobalKey<FormState>();
+class SignUpScreen extends StatefulWidget {
+  const SignUpScreen({Key? key}) : super(key: key);
+
+  @override
+  _SignUpScreenState createState() => _SignUpScreenState();
+}
+
+class _SignUpScreenState extends State<SignUpScreen> {
+  final _formKey = GlobalKey<FormState>();
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
   final _nameController = TextEditingController();
@@ -31,14 +38,14 @@ class SignUpScreen extends StatelessWidget {
             );
           }
           return Form(
-              key: _fromKey,
+              key: _formKey,
               child: ListView(
                 padding: const EdgeInsets.all(20),
                 children: [
                   TextFormField(
                     controller: _nameController,
                     validator: (String? text) {
-                      if (text!.isEmpty || text.length < 6) {
+                      if (text!.isEmpty) {
                         return "Nome inválido";
                       }
                     },
@@ -99,7 +106,7 @@ class SignUpScreen extends StatelessWidget {
                             backgroundColor: MaterialStateProperty.all(
                                 Theme.of(context).primaryColor)),
                         onPressed: () {
-                          if (_fromKey.currentState!.validate()) {
+                          if (_formKey.currentState!.validate()) {
                             Map<String, dynamic> userData = {
                               "name": _nameController.text,
                               "endereco": _addrController.text,
@@ -133,7 +140,7 @@ class SignUpScreen extends StatelessWidget {
       duration: Duration(seconds: 2),
     ));
     Future.delayed(Duration(seconds: 2)).then((_) {
-      Navigator.of(_scaffoldKey).pop();
+      Navigator.of(context).pop();
     });
   }
 

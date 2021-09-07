@@ -14,11 +14,18 @@ class ProductData {
 
   // late List sizes; //Depois eu implemento isso
 
-  ProductData.fromDocument(DocumentSnapshot documentSnapshot) {
-    id = documentSnapshot.id;
+  ProductData.fromDocument(DocumentSnapshot? documentSnapshot) {
+    id = documentSnapshot!.id;
     title = documentSnapshot["title"];
     description = documentSnapshot["description"];
     price = documentSnapshot["price"].toDouble();
     url = documentSnapshot["url"];
+  }
+
+  Map<String, dynamic>? toResumedMap() {
+    return {
+      "title": title,
+      "price": price,
+    };
   }
 }
