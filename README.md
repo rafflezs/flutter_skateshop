@@ -19,10 +19,12 @@ Skateshop ecommerce. Currently has dynamic Tabs and Screens that you can navigat
 
 ## Home page 📱
 
-Solarized dark             |  Solarized Ocean
+Home Page (destaques da loja)            |  Produtos (categorias)
 :-------------------------:|:-------------------------:
 <img src="https://user-images.githubusercontent.com/50029136/132712316-8825d2e7-c37f-4f2d-b341-aa25ac726348.png" width=30% height=30%>  |  <img src="https://user-images.githubusercontent.com/50029136/132712327-e7a11c2f-df8f-4749-b4d0-6e37cf73cbab.png" width=30% height=30%>
-
+Home Page (destaques da loja)            |  Produtos (categorias)
+:-------------------------:|:-------------------------:
+<img src="https://user-images.githubusercontent.com/50029136/132712316-8825d2e7-c37f-4f2d-b341-aa25ac726348.png" width=30% height=30%>  |  <img src="https://user-images.githubusercontent.com/50029136/132712327-e7a11c2f-df8f-4749-b4d0-6e37cf73cbab.png" width=30% height=30%>
 
 
 <img src="https://user-images.githubusercontent.com/50029136/132712328-65ff9c94-b4d7-49bb-a9ed-796f626ea5e7.png" width=30% height=30%>
