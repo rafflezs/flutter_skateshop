@@ -1,4 +1,4 @@
-# chat_app - PT_BR 🇧🇷
+# skteshop ecommerce - PT_BR 🇧🇷
 
 Loja virtual de artigos de skate. Atualmente possui features de SliverTab's para troca dinâmica de telas através da Tab Drawer.
 Seguem as seguintes features:
@@ -8,7 +8,7 @@ Seguem as seguintes features:
  - Acompanhamento de pedidos (ADENDO: Essa feature está com problemas devido a falta de suporte que o Google Maps dá ao Flutter);
  - Visualização da loja
 
-# contact_list - EN 🇺🇸
+# skteshop ecommerce - EN 🇺🇸
 
 Skateshop ecommerce. Currently has dynamic Tabs and Screens that you can navigate through Drawers. Here's some more features:
  - Dynamic product page - all products are loaded from Firebase;
